@@ -1,13 +1,99 @@
-body {
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+
+* {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Inter", sans-serif;
+  /* text-align: center; */
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+.centralize {
+  display: flex;
+  /* border: 1px solid yellow; */
+  justify-content: center;
+  align-items: center;
+  height: auto;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  /* border: 1px solid black; */
+  padding: 150px 0;
+  width: 395px;
+}
+
+.form .input-field {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+}
+
+.form label {
+  text-align: start;
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+
+.form input {
+  width: 100%;
+  border-radius: 5px;
+  border: 1.2px solid black;
+  height: 48px;
+  padding: 20px;
+}
+
+.help-text {
+  font-size: 14px;
+  font-weight: 400;
+  align-self: end;
+  margin-top: 10px;
+}
+
+h1 {
+  margin-bottom: 15px;
+  font-weight: 600;
+  text-align: center;
+}
+
+.form-button {
+  height: 53px;
+  width: 395px;
+  background-color: #000;
+  color: #fff;
+  text-align: center;
+  border: none;
+  border-radius: 5px;
+  font-size: 14px;
+  margin-top: 10px;
+}
+
+.form-text {
+  text-align: center;
+}
+
+.header {
+  margin-bottom: 15px;
+}
+
+.popup {
+  height: 60px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  color: #fff;
+  background-color: #000;
+  font-size: 20px;
+  font-weight: 400;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.invisible {
+  display: hidden;
 }
