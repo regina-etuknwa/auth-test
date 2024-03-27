@@ -1,16 +1,9 @@
 import { Link } from "react-router-dom";
-import OTPInput from "./OTPInput";
 
-
-
-
-const ConfirmEmail = () => {
-
-
+const Popup = () => {
     return ( 
-        <div>
-            <div className="popup">
-                <div className="popup-text">Email confirmed successfully. Proceed to <Link to="/sign-in" >Login</Link> </div>
+        <div className="popup">
+                <div className="popup-text">Email confirmed successfully. Proceed to <Link to="/sign-in" >Login</Link></div>
                 
                 <div className="close-img">
                                     <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -18,18 +11,7 @@ const ConfirmEmail = () => {
                     </svg>
                 </div>
             </div>
-            <div className="centralize">
-                <form className="form" action="">
-                    <div className="header">
-                        <h1>Confirm email</h1>
-                        <p>Enter code sent to *****tt5@gmail.com to confirm email.</p>
-                    </div>
-                    <OTPInput length={6} />
-                    <button className="form-button" id="reset-password-button" type="submit">Proceed</button>
-                </form>
-            </div>
-        </div>
      );
 }
  
-export default ConfirmEmail;
+export default Popup;

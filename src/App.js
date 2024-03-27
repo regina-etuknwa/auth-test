@@ -31,11 +31,6 @@ function App() {
               <NotFound />
             </Route>
           </Switch>
-      {/* <SignUp />
-      <SignIn />
-      <PasswordReset />
-      <NewPassword />
-      <ConfirmEmail /> */}
      </div>
     </Router>
     
