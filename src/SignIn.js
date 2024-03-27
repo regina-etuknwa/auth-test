@@ -1,9 +1,13 @@
 import { Link } from "react-router-dom";
 
 const SignIn = () => {
+    const handleSubmit = (e) => {
+        e.preventDefault();
+    }
+
     return ( 
         <div className="centralize">
-            <form className="form" action="">
+            <form className="form" action="" onSubmit={handleSubmit}>
                 <h1>Login</h1>
                 <div className="input-field">
                     <label htmlFor="login-email">Email</label>

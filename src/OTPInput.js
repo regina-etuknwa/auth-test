@@ -1,6 +1,6 @@
 import { useRef, useState } from 'react';
 
-const OTPInput = ({ length }) => {
+const OTPInput = ({ length, onOTPSave }) => {
 
     const [otp, setOTP] = useState(new Array(length).fill(''));
     const inputsRef = useRef([]);
@@ -14,6 +14,8 @@ const OTPInput = ({ length }) => {
         if(index < length-1  && value !== ""){
             inputsRef.current[index+1].focus();
         }
+
+        onOTPSave(newOTP);
     };
 
     const handleKeyDown = (index, event) => {
@@ -22,11 +24,6 @@ const OTPInput = ({ length }) => {
         }
     };
 
-    const handleDisable = (index) => {
-        if (inputsRef.current[index-1] === ''){
-            return true;
-        }
-    }
 
     return ( 
         <div className="otp-input-group">
@@ -40,7 +37,6 @@ const OTPInput = ({ length }) => {
                     onChange={e => handleChange(index, e.target.value)}
                     onKeyDown={e => handleKeyDown(index, e)}
                     ref={(input) => (inputsRef.current[index] = input)}
-                    disabled={handleDisable(index)}
                 />
             ))}
         </div>

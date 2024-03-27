@@ -1,9 +1,13 @@
 import { Link } from "react-router-dom/cjs/react-router-dom.min";
 
 const SignUp = () => {
+    const handleSubmit = (e) => {
+        e.preventDefault();
+    }
+
     return ( 
         <div className="centralize">
-            <form className="form" action="">
+            <form className="form" action="" onSubmit={handleSubmit}>
                 <h1>Create an Account</h1>
                 <div className="input-field">
                     <label htmlFor="signup-email">Email</label>
