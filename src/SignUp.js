@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom/cjs/react-router-dom.min";
+
 const SignUp = () => {
     return ( 
         <div className="centralize">
@@ -30,7 +32,7 @@ const SignUp = () => {
                 </div>
                 <button className="form-button" id="signup-button" type="submit">Sign Up</button>
                 {/* add link */}
-                <small className="form-text">Already have an account? Sign in</small>
+                <small className="form-text">Already have an account? <Link to="/sign-in">Sign in</Link></small>
 
             </form>
         </div>

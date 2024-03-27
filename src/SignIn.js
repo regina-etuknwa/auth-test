@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 const SignIn = () => {
     return ( 
         <div className="centralize">
@@ -10,10 +12,10 @@ const SignIn = () => {
                 <div className="input-field">
                     <label htmlFor="login-password">Password</label>
                     <input type="password" id="login-password" placeholder="Enter Password" />
-                    <p className="help-text">Forgot password?</p>{/* add Link */}
+                    <p className="help-text"> <Link to="/password-reset">Forgot password?</Link></p>
                 </div>
                 <button className="form-button" id="login-button" type="submit">Login</button>
-                <small  className="form-text">Don't have an account? Sign up</small>{/* add Link */}
+                <small  className="form-text">Don't have an account? <Link to="/">Sign up</Link></small>{/* add Link */}
             </form>
             
         </div>
