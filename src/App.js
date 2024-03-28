@@ -12,19 +12,19 @@ function App() {
     <Router>
       <div className="App">
           <Switch>
-            <Route exact path="/">
+            <Route exact path="/auth-test/">
               <SignUp />
             </Route>
-            <Route path="/sign-in">
+            <Route path="/auth-test/sign-in">
               <SignIn />
             </Route>
-            <Route path="/password-reset">
+            <Route path="/auth-test/password-reset">
               <PasswordReset />
             </Route>
-            <Route path="/new-password">
+            <Route path="/auth-test/new-password">
               <NewPassword />
             </Route>
-            <Route path="/confirm-email">
+            <Route path="/auth-test/confirm-email">
               <ConfirmEmail />
             </Route>
             <Route path="*">

@@ -7,7 +7,7 @@ const NewPassword = () => {
     const [pass, setPass] = useState('');
     const [confirmPass, setConfirmPass] = useState('');
     const [passwordsMatch, setPasswordsMatch] = useState(true);
-    const link = <Link to="/sign-in" >Login</Link>;
+    const link = <Link to="/auth-test/sign-in" >Login</Link>;
 
     const handlePasswordChange = e => {
         setPass(e.target.value);

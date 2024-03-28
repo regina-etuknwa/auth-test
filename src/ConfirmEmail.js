@@ -10,7 +10,7 @@ const ConfirmEmail = () => {
     const [otp, setOTP] = useState('');
     const [isPopupOpen, setIsPopupOpen] = useState(false);
     const [email, setEmail] = useState(null);
-    const link = <Link to="/sign-in" >Login</Link>;
+    const link = <Link to="/auth-test/sign-in" >Login</Link>;
 
     const saveOTP = (value) => {
         setOTP(value);

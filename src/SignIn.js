@@ -16,10 +16,10 @@ const SignIn = () => {
                 <div className="input-field">
                     <label htmlFor="login-password">Password</label>
                     <input type="password" id="login-password" placeholder="Enter Password" />
-                    <p className="help-text"> <Link to="/password-reset">Forgot password?</Link></p>
+                    <p className="help-text"> <Link to="/auth-test/password-reset">Forgot password?</Link></p>
                 </div>
                 <button className="form-button" id="login-button" type="submit">Login</button>
-                <small  className="form-text">Don't have an account? <Link to="/">Sign up</Link></small>{/* add Link */}
+                <small  className="form-text">Don't have an account? <Link to="/auth-test/">Sign up</Link></small>
             </form>
             
         </div>
