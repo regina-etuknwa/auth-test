@@ -35,7 +35,6 @@ const SignUp = () => {
                     <input type="password" id="confirm-password" placeholder="Retype Password" />
                 </div>
                 <button className="form-button" id="signup-button" type="submit">Sign Up</button>
-                {/* add link */}
                 <small className="form-text">Already have an account? <Link to="/sign-in">Sign in</Link></small>
 
             </form>
