@@ -220,19 +220,23 @@ button {
   width: 100%;
 }
 
-.edit-profile-btn {
+.edit-profile-link {
   height: 53px;
   width: 100%;
   text-align: center;
   border: 1px solid #000;
-  background-color: #fff;
-  font-weight: 600;
   border-radius: 5px;
-  font-size: 14px;
   margin-top: 10px;
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.edit-profile-btn {
+  border: none;
+  background-color: #fff;
+  font-weight: 600;
+  font-size: 14px;
 }
 
 .avatar {
@@ -242,8 +246,42 @@ button {
   border: 2px solid pink;
 }
 
+.user-activities {
+  width: 800px;
+}
+
+
 .user-activity {
-  width: 917px;
+  position: relative;
+  padding: 15px;
+  font-size: 18px;
+  vertical-align: middle;
+}
+
+.user-activity::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  /* transform: translateY(-50%); */
+  left: -21px;
+  width: 2px;
+  height: 100%;
+  background-color: #000;
+}
+
+.user-activity::marker {
+  font-size: 32px;
+}
+
+
+.user-activity:last-child::before {
+  top: -50%;
+}
+
+.activity-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 h2 {

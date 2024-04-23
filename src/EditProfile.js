@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import SubmitButton from "./SubmitButton";
 import Popup from "./Popup";
+import { useHistory } from "react-router-dom";
 
 const EditProfile = () => {
 
@@ -18,12 +19,17 @@ const EditProfile = () => {
     const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
     const [isChangePasswordPopupOpen, setIsChangePasswordPopupOpen] = useState(false);
     const [error, setError] = useState('');
-    const [passwordParameter, setPasswordParameter] = useState('');
+    const [token, setToken] = useState('');
+    const history = useHistory();
 
     useEffect(() => {
         const savedEmailData = localStorage.getItem('emailData');
+        const savedToken = localStorage.getItem('tokenData');
         if(savedEmailData) {
             setUserName(savedEmailData);
+        }
+        if(savedToken) {
+            setToken(savedToken);
         }
     }, []);
 
@@ -56,26 +62,30 @@ const EditProfile = () => {
         setIsChangePasswordPopupOpen(false);
     };
 
-    // Microsoft.AspNetCore.Identity.IdentityError
     const handleChangePassword = async (e) => {
         e.preventDefault();
         setUpdatePasswordIsLoading(true);
-        console.log(userName, currentPassword, newPassword)
+        closeChangePasswordPopup();
+        setError('');
+
         try {
             const response = await fetch('http://localhost:4000/api/Auth/changePassword', {
                 method: 'POST',
-                headers: { "Content-Type": "application/json"},
+                headers: { 
+                    "Content-Type": "application/json",
+                    'Authorization': `Bearer ${token}`
+                },
+                
                 body: JSON.stringify({ userName, currentPassword, newPassword })
             });
             const data = await response.json();
             if(data.isSuccessful) {
                 openChangePasswordPopup();
-                setPasswordParameter('');
             } else {
-                
-                setError(data.message);
-                if(data.length) {
-                    setPasswordParameter(data[0]['description']);
+                if(data.message === 'Microsoft.AspNetCore.Identity.IdentityError') {
+                    setError('Incorrect Password');
+                } else {
+                    setError('Password reset failed. Please change your new password and try again.');
                 }
             }
         } catch(error) {
@@ -86,12 +96,53 @@ const EditProfile = () => {
         }
     }
 
+    const handleEditProfile = async (e) => {
+        e.preventDefault();
+        setEditProfileIsLoading(true);
+        closeEditProfilePopup();
+        setError('');
+
+        console.log(token);
+
+        try {
+            const formData = new FormData();
+            formData.append('FirstName', firstName);
+            formData.append('LastName', lastName);
+            formData.append('PhoneNumber', phoneNumber);
+            // formData.append('ProfilePicture', '');
+
+            const response = await fetch(`http://localhost:4000/api/User/update`, {
+                method: 'PUT',
+                headers: { 
+                    // "Content-Type": "multipart/form-data",
+                    'Authorization': `Bearer ${token}`
+                },
+                body: formData
+            });
+
+            const data = await response.json();
+
+            if(data.isSuccessful) {
+                history.push('/auth-test/home-page');
+            } else {
+                setError(data.message);
+            }
+
+        } catch(error) {
+            console.error('Error during profile change: ', error);
+            setError('An unexpected error occured. Please try again.');
+        } finally {
+            setEditProfileIsLoading(false);
+        }
+    }
+
     return ( 
         <div>
             { isChangePasswordPopupOpen && <Popup onClose={closeChangePasswordPopup} text='Password changed successfully!' />}
+            { isEditProfilePopupOpen && <Popup onClose={closeEditProfilePopup} text='Changes saved successfully!' />}
             <div className="centralize vertical">
             <img src="" alt="Avatar" className="avatar mt-80" />
-            <form action="" className="edit-profile-form">
+            <form action="" className="edit-profile-form" onSubmit={handleEditProfile}>
                 <div className="form-row">
                 <div className="input-field form-row-item">
                     <label htmlFor="edit-profile-first-name">First Name</label>
@@ -174,7 +225,6 @@ const EditProfile = () => {
                         </div>
                     </div>
                 </div>
-                {passwordParameter && <p className="help-text password-error">*{passwordParameter}</p>}
                 <SubmitButton isLoading={updatePasswordIsLoading} text="Update password" />
             </form>
         </div>

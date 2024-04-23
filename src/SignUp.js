@@ -42,6 +42,7 @@ const SignUp = () => {
                 headers: { "Content-Type": "application/json"},
                 body: JSON.stringify({ email, firstName, lastName, phoneNumber, password})
             });
+            
             const data = await response.json();
             if(data.isSuccessful) {
                 console.log('Sign-up successful');

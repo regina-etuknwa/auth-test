@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import Popup from "./Popup";
 import SubmitButton from "./SubmitButton";
 
@@ -10,6 +10,7 @@ const SignIn = () => {
     const [isPopupOpen, setIsPopupOpen] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
     const [ showPassword, setShowPassword] = useState(false);
+    const history = useHistory();
 
     const openPopup = () => {
         setIsPopupOpen(true);
@@ -29,10 +30,20 @@ const SignIn = () => {
                 headers: { "Content-Type": "application/json"},
                 body: JSON.stringify({ email, password })
             });
+            const data = await response.json();
+            
+
             if(response.status === 200) {
-                openPopup();
+                if(data.token) {
+                    localStorage.setItem('emailData', email);
+                    openPopup();
+                    history.push('/auth-test/home-page');
+                    const tokenData = data.token;
+                    localStorage.setItem('tokenData', tokenData);
+                } else {
+                    setError(data.message);
+                }
             } else {
-                const data = await response.json();
                 console.log(data);
                 setError(data.message);
             }
