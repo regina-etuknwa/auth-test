@@ -8,9 +8,8 @@ const HomePage = () => {
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState('');
     const [isPopupOpen, setIsPopupOpen] = useState(false);
-    const [decodedToken, setDecodedToken] = useState('');
-    const [id, setId] = useState('');
-    const [ userData, setUserData] = ('');
+    // const [decodedToken, setDecodedToken] = useState('');
+    // const [ id, setId ] = useState('');
     const [ loginCount, setLoginCount ] = useState('');
     const [ profilePicture, setProfilePicture ] = useState(null);
     const [ name, setName ] = useState('');
@@ -22,7 +21,7 @@ const HomePage = () => {
         if(token) {
             const decoded = jwtDecode(token)
             // setDecodedToken(decoded);
-            setId(decoded.uid);
+            // setId(decoded.uid);
             const fetchData = async () => {
                 // console.log("data fetched");
                 try {
@@ -32,14 +31,11 @@ const HomePage = () => {
                     setLoginCount(data.data.loginCount);
                     setProfilePicture(data.data.profilePicture);
 
-
-                    // add time stamps
                     const latestActivities = data.data.latestActivities.slice(-3);
                     const activitiesArray = [];
                     latestActivities.forEach(activity => {
                         activitiesArray.unshift(activity);
                     })
-                    // console.log(latestActivities);
                     setActivities(activitiesArray);
 
 
@@ -53,6 +49,7 @@ const HomePage = () => {
     }, []);
 
 
+    // add "return to home"
     const openPopup = () => {
         setIsPopupOpen(true);
     };
@@ -66,7 +63,7 @@ const HomePage = () => {
         history.push('/auth-test/sign-in');
         
         // console.log(decodedToken);
-        console.log(id);
+        // console.log(id);
 
 
         // setIsLoading(true);
@@ -92,7 +89,7 @@ const HomePage = () => {
             { isPopupOpen && <Popup onClose={closePopup} text='Logout successful!' />}
             <div className="centralize vertical">
                 <section className="homepage-header">
-                    <img src="" alt="Avatar" className="avatar" />
+                    <img src={profilePicture} alt="Avatar" className="avatar" />
                     <h1>Welcome back {name} </h1>
                     <p>Login count: {loginCount}</p>
                     { error && <p className="error-text">{error}</p> }

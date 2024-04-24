@@ -239,15 +239,22 @@ button {
   font-size: 14px;
 }
 
+
+.edit-avatar-img {
+  cursor: pointer;
+  align-self: center;
+}
+
 .avatar {
   width: 98px;
   height: 98px;
   border-radius: 50%;
-  border: 2px solid pink;
+  border: none
 }
 
 .user-activities {
   width: 800px;
+  margin-bottom: 50px;
 }
 
 

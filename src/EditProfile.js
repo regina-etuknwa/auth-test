@@ -1,7 +1,8 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import SubmitButton from "./SubmitButton";
 import Popup from "./Popup";
 import { useHistory } from "react-router-dom";
+import { jwtDecode } from 'jwt-decode';
 
 const EditProfile = () => {
 
@@ -11,6 +12,8 @@ const EditProfile = () => {
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
     const [phoneNumber, setPhoneNumber] = useState('');
+    const [profilePictureData, setProfilePictureData] = useState(null);
+    const [profilePicture, setProfilePicture] = useState(null);
     const [currentPassword, setCurrentPassword] = useState('');
     const [newPassword, setNewPassword] = useState('');
     const [ showCurrentPassword, setShowCurrentPassword] = useState(false);
@@ -22,6 +25,8 @@ const EditProfile = () => {
     const [token, setToken] = useState('');
     const history = useHistory();
 
+    const fileInputRef = useRef(null);
+
     useEffect(() => {
         const savedEmailData = localStorage.getItem('emailData');
         const savedToken = localStorage.getItem('tokenData');
@@ -30,6 +35,21 @@ const EditProfile = () => {
         }
         if(savedToken) {
             setToken(savedToken);
+            const decoded = jwtDecode(savedToken);
+            const fetchData = async () => {
+                // console.log("data fetched");
+                try {
+                    const response = await fetch(`http://localhost:4000/api/user/${decoded.uid}`);
+                    const data = await response.json();
+                    
+                    setProfilePicture(data.data.profilePicture);
+
+                } catch (error) {
+                    console.error('Error fetching profile picture: ', error);
+                    setError('An unexpected error occured. Please try again later');
+                }
+            }
+            fetchData();
         }
     }, []);
 
@@ -109,7 +129,7 @@ const EditProfile = () => {
             formData.append('FirstName', firstName);
             formData.append('LastName', lastName);
             formData.append('PhoneNumber', phoneNumber);
-            // formData.append('ProfilePicture', '');
+            formData.append('ProfilePicture', profilePictureData);
 
             const response = await fetch(`http://localhost:4000/api/User/update`, {
                 method: 'PUT',
@@ -136,13 +156,31 @@ const EditProfile = () => {
         }
     }
 
+    const handleFileSelect = e => {
+        const file = e.target.files[0];
+        if (file) {
+            setProfilePicture(URL.createObjectURL(file));
+            setProfilePictureData(file);
+        }
+    }
+
+    const handleEditProfilePicture = () => {
+        fileInputRef.current.click();
+    }
+
     return ( 
         <div>
             { isChangePasswordPopupOpen && <Popup onClose={closeChangePasswordPopup} text='Password changed successfully!' />}
             { isEditProfilePopupOpen && <Popup onClose={closeEditProfilePopup} text='Changes saved successfully!' />}
             <div className="centralize vertical">
-            <img src="" alt="Avatar" className="avatar mt-80" />
             <form action="" className="edit-profile-form" onSubmit={handleEditProfile}>
+                <input 
+                    type="file" 
+                    accept="image/*"
+                    onChange={handleFileSelect}
+                    ref={fileInputRef}
+                    className="hidden"  />
+                <img src={profilePicture} alt="Avatar" className="edit-avatar-img avatar" onClick={handleEditProfilePicture}/>
                 <div className="form-row">
                 <div className="input-field form-row-item">
                     <label htmlFor="edit-profile-first-name">First Name</label>
