@@ -41,7 +41,10 @@ const EditProfile = () => {
                 try {
                     const response = await fetch(`http://localhost:4000/api/user/${decoded.uid}`);
                     const data = await response.json();
-                    
+                    setFirstName(data.data.firstName);
+                    setLastName(data.data.lastName);
+                    setPhoneNumber(data.data.phoneNumber);
+                    setEmail(data.data.email);
                     setProfilePicture(data.data.profilePicture);
 
                 } catch (error) {

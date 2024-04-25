@@ -17,13 +17,14 @@ const HomePage = () => {
     const history = useHistory();
     
     useEffect(() => {
+        console.log("useEffect ran");
         const token = localStorage.getItem('tokenData');
         if(token) {
             const decoded = jwtDecode(token)
             // setDecodedToken(decoded);
             // setId(decoded.uid);
             const fetchData = async () => {
-                // console.log("data fetched");
+                console.log("data fetched");
                 try {
                     const response = await fetch(`http://localhost:4000/api/user/${decoded.uid}`);
                     const data = await response.json();
