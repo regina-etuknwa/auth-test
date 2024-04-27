@@ -7,3 +7,9 @@ services:
       - 4000:80
     environment:
       ASPNETCORE_ENVIRONMENT: Development
+
+  auth-fe:
+    image: authtest:25.04.24.01
+    container_name: 'auth-fe'
+    ports:
+      - 3000:3000

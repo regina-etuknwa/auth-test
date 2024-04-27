@@ -3,6 +3,7 @@ import { Link, useHistory } from "react-router-dom";
 import Popup from "./Popup";
 import { jwtDecode } from 'jwt-decode';
 import ActivityItem from "./ActivityItem";
+import EmptyAvatar from "./EmptyAvatar";
 
 const HomePage = () => {
     const [isLoading, setIsLoading] = useState(false);
@@ -90,8 +91,9 @@ const HomePage = () => {
             { isPopupOpen && <Popup onClose={closePopup} text='Logout successful!' />}
             <div className="centralize vertical">
                 <section className="homepage-header">
-                    <img src={profilePicture} alt="Avatar" className="avatar" />
-                    <h1>Welcome back {name} </h1>
+                    { !profilePicture && <EmptyAvatar />}
+                    { profilePicture && <img src={profilePicture} alt="Avatar" className="avatar" /> }
+                    <h1>Welcome{loginCount >= 2 && " back"}, {name} </h1>
                     <p>Login count: {loginCount}</p>
                     { error && <p className="error-text">{error}</p> }
                     <div className="homepage-btns">

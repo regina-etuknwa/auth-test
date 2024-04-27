@@ -3,6 +3,7 @@ import SubmitButton from "./SubmitButton";
 import Popup from "./Popup";
 import { useHistory } from "react-router-dom";
 import { jwtDecode } from 'jwt-decode';
+import EmptyAvatar from "./EmptyAvatar";
 
 const EditProfile = () => {
 
@@ -183,7 +184,24 @@ const EditProfile = () => {
                     onChange={handleFileSelect}
                     ref={fileInputRef}
                     className="hidden"  />
-                <img src={profilePicture} alt="Avatar" className="edit-avatar-img avatar" onClick={handleEditProfilePicture}/>
+                { !profilePicture && 
+                    <div className="edit-avatar-container">
+                        <EmptyAvatar onEdit={handleEditProfilePicture} />
+                        <div className="pencil-container">
+                            <div className="pencil-icon">✏️</div>
+                        </div>
+                    </div>
+                }
+                { profilePicture && 
+                    <div className="edit-avatar-container">
+                        <img src={profilePicture} alt="Avatar" className="edit-avatar-img avatar" onClick={handleEditProfilePicture}/>
+                        <div className="pencil-container">
+                            <div className="pencil-icon">✏️</div>
+                        </div>
+                    </div>
+                }
+                
+                
                 <div className="form-row">
                 <div className="input-field form-row-item">
                     <label htmlFor="edit-profile-first-name">First Name</label>

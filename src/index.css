@@ -242,14 +242,48 @@ button {
 
 .edit-avatar-img {
   cursor: pointer;
+  width: 100%;
+  height: 100%;
+}
+
+.edit-avatar-container {
   align-self: center;
+  position: relative;
+  width: 98px;
+  height: 98px;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.pencil-container {
+  background-color: #8a8a8a;
+  position: absolute;
+  right: 2px;
+  bottom: 4px;
+  border-radius: 50%;
+  padding: 3px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.pencil-icon {
+  font-size: 10px;
 }
 
 .avatar {
   width: 98px;
   height: 98px;
   border-radius: 50%;
-  border: none
+  border: none;
+  object-fit: cover;
+  background-color: #d9d9d9;
+}
+
+.empty-avatar-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .user-activities {
@@ -257,6 +291,9 @@ button {
   margin-bottom: 50px;
 }
 
+.activity-list {
+  padding-left: 30px;
+}
 
 .user-activity {
   position: relative;
@@ -281,8 +318,7 @@ button {
 }
 
 
-.user-activity:last-child::before {
-  top: -50%;
+.user-activity:last-child::before {display: none;
 }
 
 .activity-item {
